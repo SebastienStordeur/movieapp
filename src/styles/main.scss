@@ -5,9 +5,10 @@
 @import './components/card';
 @import "./components/input";
 
-
-@import '../components/Forms/LoginForm.scss';
+@import '../components/Forms/LoginForm';
 @import "../components/Navbar/navbar";
-
+@import "../components/Search/search";
+@import "../components/Movies/Trending/trending";
+@import "../components/Movies/Recommended/recommended";
 
 @import "../components/Layouts/Header/header";

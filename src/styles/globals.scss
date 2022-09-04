@@ -13,6 +13,12 @@ a {
   text-decoration: none;
 }
 
+main {
+  background: $background;
+  min-height: calc(100vh - 56px);
+  color: $white;
+}
+
 .form-section {
   width: 100%;
   min-height: 100vh;

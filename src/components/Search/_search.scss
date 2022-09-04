@@ -1,0 +1,22 @@
+.search {
+  display: flex;
+  padding: 24px 16px;
+  background: $background;
+  position: relative;
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+  .search-input {
+    background: $background;
+    border: none;
+    font-size: 16px;
+    line-height: 20px;
+    padding-left: 40px;
+    outline: none;
+  }
+}

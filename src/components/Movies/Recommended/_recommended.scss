@@ -1,0 +1,17 @@
+.recommended-section {
+  width: 100%;
+  padding: 0 16px;
+  margin-top: 24px;
+  .recommended-title {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 25px;
+    margin-bottom: 16px;
+  }
+  .recommended-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 15px;
+    grid-row-gap: 16px;
+  }
+}
