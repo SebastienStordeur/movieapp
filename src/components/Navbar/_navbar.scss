@@ -1,0 +1,33 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  width: 100%;
+  background: $dark-grey;
+  padding: 0 16px;
+  .logo-header {
+    width: 25px;
+    height: 20px;
+  }
+  .nav-links {
+    display: flex;
+    justify-content: space-evenly;
+    img {
+      margin: 0 12px;
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+    }
+  }
+  .profile-picture {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: $light-grey;
+  }
+}
+
+.nav-active {
+  filter: brightness(300%)
+}

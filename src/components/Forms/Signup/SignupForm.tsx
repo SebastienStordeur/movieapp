@@ -5,8 +5,6 @@ import Button from "../../UI/Button";
 import Input from "../../UI/Input";
 
 const SignupForm: React.FC = () => {
-  let formIsValid = false;
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
