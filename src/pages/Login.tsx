@@ -4,9 +4,11 @@ import Card from "../components/UI/Card";
 
 const Login: React.FC = () => {
   return (
-    <Card className="card login-card">
-      <LoginForm />
-    </Card>
+    <section className="form-section">
+      <Card className="card login-card">
+        <LoginForm />
+      </Card>
+    </section>
   );
 };
 

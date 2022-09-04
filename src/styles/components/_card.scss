@@ -4,8 +4,22 @@
   background: $dark-grey;
 }
 
-.login-card {
+.login-card, .signup-card {
+  position: absolute;
+  left: 0; 
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
   background: $dark-grey;
   padding: 24px 24px 32px;
-  width: 100%;
+  width: calc(100% - 48px);
+  max-width: 400px;
+}
+
+.login-card {
+  height: 365px;
+}
+.signup-card {
+  height: 420px; 
 }

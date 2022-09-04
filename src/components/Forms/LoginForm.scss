@@ -1,4 +1,4 @@
-.login-form {
+.login-form, .signup-form {
   display: flex;
   flex-direction: column;
   background: $dark-grey;
@@ -23,5 +23,4 @@
       cursor: pointer;
     }
   }
-
 }
