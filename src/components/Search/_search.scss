@@ -20,3 +20,12 @@
     outline: none;
   }
 }
+
+@media (min-width: 768px) {
+  .search {
+    padding-top: 0;
+    .search-icon {
+      top: 30%;
+    }
+  }
+}

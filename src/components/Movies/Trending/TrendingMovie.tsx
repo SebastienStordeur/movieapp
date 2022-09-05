@@ -24,8 +24,8 @@ const TrendingMovie: React.FC<IMovie> = (props) => {
   return (
     <article className="trending-movie">
       <img
-        /* src={props.thumbnail.trending.small} */
-        src={require("../../../assets/thumbnails/beyond-earth/trending/small.jpg")}
+        src={props.thumbnail.trending.small}
+        /*src={require("../../../assets/thumbnails/beyond-earth/trending/small.jpg")}*/
         alt={props.title}
         className="movie-img"
       />

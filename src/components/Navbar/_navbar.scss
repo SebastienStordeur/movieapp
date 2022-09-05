@@ -28,6 +28,12 @@
   }
 }
 
+@media (min-width: 768px) {
+  .navbar {
+    border-radius: 10px;
+  }
+}
+
 .nav-active {
   filter: brightness(300%)
 }

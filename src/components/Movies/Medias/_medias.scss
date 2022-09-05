@@ -14,11 +14,25 @@
     grid-column-gap: 15px;
     grid-row-gap: 16px;
   }
+  @media (min-width:768px) {
+    .recommended-grid {
+      grid-template-columns: repeat(3, 1fr);
+      grid-column-gap: 30px;
+      grid-row-gap: 24px;
+    }
+  }
+  @media (min-width:1024px) {
+    .recommended-grid {
+      grid-template-columns: repeat(4, 1fr);
+      grid-column-gap: 40px;
+      grid-row-gap: 32px;
+    }
+  }
 }
 
 .recommended-movie{
   height: 154px;
-  width: 164px;
+  width: 100%;
   position: relative;
   .image-movie {
     height: 110px;
@@ -66,3 +80,4 @@
     }
   }
 }
+

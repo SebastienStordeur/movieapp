@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Movie } from "../Trending/Trending";
 import data from "../../../data.json";
-import MediaCard from "./MovieCard";
+import MediaCard from "./MediaCard";
 
 interface IMedias {
   title: string;
