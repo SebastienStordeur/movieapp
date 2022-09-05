@@ -18,7 +18,7 @@ const Navlinks: React.FC = () => {
         <img src={Movie} alt="Movies" title="To movies" />
       </NavLink>
       <NavLink
-        to="/tv-shows"
+        to="/series"
         className={(nav) => (nav.isActive ? "nav-active" : "")}
       >
         <img src={TV} alt="TV shows" title="To TV shows" />

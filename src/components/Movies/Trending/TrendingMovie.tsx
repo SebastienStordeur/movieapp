@@ -1,6 +1,6 @@
 import React from "react";
 
-interface ITrendingMovie {
+export interface IMovie {
   title: string;
   thumbnail: {
     trending: {
@@ -20,7 +20,7 @@ interface ITrendingMovie {
   isTrending: boolean;
 }
 
-const TrendingMovie: React.FC<ITrendingMovie> = (props) => {
+const TrendingMovie: React.FC<IMovie> = (props) => {
   return (
     <article className="trending-movie">
       <img

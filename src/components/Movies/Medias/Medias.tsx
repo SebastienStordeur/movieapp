@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Movie } from "../Trending/Trending";
 import data from "../../../data.json";
-import TrendingMovie from "../Trending/TrendingMovie";
+import MediaCard from "./MovieCard";
 
-const Recommended: React.FC = () => {
+interface IMedias {
+  title: string;
+}
+
+const Medias: React.FC<IMedias> = (props) => {
   const [recommended, setRecommended] = useState<any>([]);
 
   useEffect(() => {
     const recommendedMovies = data.filter(
-      (movie) => movie.isBookmarked !== true
+      (movie) => (movie.isBookmarked = true)
     );
     console.log(recommendedMovies);
     setRecommended(recommendedMovies);
@@ -18,18 +22,16 @@ const Recommended: React.FC = () => {
 
   return (
     <section id="recommended" className="recommended-section">
-      <h2 className="recommended-title">Recommended for you</h2>
+      <h2 className="recommended-title">{props.title}</h2>
       <div className="recommended-grid">
-        {/*         {recommended
+        {recommended
           ? recommended.map((movie: Movie) => {
-              return (
-                <TrendingMovie {...movie} key={Math.random().toString()} />
-              );
+              return <MediaCard {...movie} key={Math.random().toString()} />;
             })
-          : ""} */}
+          : ""}
       </div>
     </section>
   );
 };
 
-export default Recommended;
+export default Medias;

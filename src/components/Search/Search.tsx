@@ -3,7 +3,11 @@ import Input from "../UI/Input";
 
 import SearchIcon from "../../assets/icon-search.svg";
 
-const Search: React.FC = () => {
+interface ISearch {
+  placeholder: string;
+}
+
+const Search: React.FC<ISearch> = (props) => {
   return (
     <div className="search">
       <img src={SearchIcon} alt="Search" className="search-icon" />
@@ -12,7 +16,7 @@ const Search: React.FC = () => {
         name="search"
         className="input search-input"
         type="text"
-        placeholder="Search for movies or TV series"
+        placeholder={props.placeholder}
       />
     </div>
   );
