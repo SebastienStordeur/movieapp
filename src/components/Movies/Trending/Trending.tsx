@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import data from "../../../data.json";
+import data from "../../../data/data.json";
 import TrendingMovie from "./TrendingMovie";
 
 export type Movie = {

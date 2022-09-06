@@ -6,10 +6,7 @@ const MediaCard: React.FC<IMovie> = (props) => {
   return (
     <article className="recommended-movie">
       <div className="image-movie">
-        <img
-          src={require("../../../assets/thumbnails/beyond-earth/trending/small.jpg")}
-          alt=""
-        />
+        <img src={props.thumbnail.regular.small} alt="" />
       </div>
       <div className="movie-infos">
         <div className="secondary-infos">
