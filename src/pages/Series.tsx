@@ -13,13 +13,17 @@ const Series: React.FC = () => {
       (serie) => serie.category === "TV Series"
     );
     setSeries(filteredSeries);
-    console.log(filteredSeries);
   }, []);
   return (
     <React.Fragment>
       <Header />
       <Main>
-        <Search placeholder="Search for TV series" medias={series} />
+        <Search
+          placeholder="Search for TV series"
+          medias={series}
+          setMedias={setSeries}
+          type="TV Series"
+        />
         <Medias title="TV Series" medias={series} />
       </Main>
     </React.Fragment>

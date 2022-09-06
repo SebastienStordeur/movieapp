@@ -8,23 +8,11 @@ import Search from "../components/Search/Search";
 
 const Movies: React.FC = () => {
   const [movies, setMovies] = useState<any>([]);
-  /*   const [search, setSearch] = useState<string>(""); */
 
   useEffect(() => {
     const filteredMovies = data.filter((movie) => movie.category === "Movie");
     setMovies(filteredMovies);
   }, []);
-
-  /*   const searchMediaHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const filteredMovies = data.filter((movie) => movie.category === "Movie");
-    setSearch(event.currentTarget.value);
-    console.log(search);
-    if (search !== "") {
-      setMovies(
-        filteredMovies.filter((movie: any) => movie.title.includes(search))
-      );
-    } else setMovies(filteredMovies);
-  }; */
 
   return (
     <React.Fragment>
@@ -33,8 +21,8 @@ const Movies: React.FC = () => {
         <Search
           placeholder="Search for movies"
           medias={movies}
-          /* setSearch={setSearch} */
           setMedias={setMovies}
+          type="Movie"
         />
         {movies && <Medias title="Movies" medias={movies} />}
       </Main>

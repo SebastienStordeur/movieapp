@@ -26,27 +26,28 @@ interface ISearch {
     isTrending: boolean;
   }[];
   setMedias?: Dispatch<SetStateAction<any>> | any;
+  type?: string;
 }
 
 const Search: React.FC<ISearch> = (props) => {
   const searchRef = useRef<HTMLInputElement>(null);
 
-  const filterMediaHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(searchRef.current?.value);
-
-    props.setMedias(
-      data.filter(
-        (media: any) =>
-          media.title.includes(searchRef.current?.value) &&
-          media.category === "Movie"
-      )
-    );
-
-    if (searchRef.current?.value === "") {
-      props.setMedias(data.filter((media) => media.category === "Movie"));
+  const filterMediaHandler = () => {
+    if (props.type !== "All") {
+      props.setMedias(
+        data.filter(
+          (media: any) =>
+            media.title.includes(searchRef.current?.value) &&
+            media.category === props.type
+        )
+      );
+    } else {
+      props.setMedias(
+        data.filter((media: any) =>
+          media.title.includes(searchRef.current?.value)
+        )
+      );
     }
-
-    //props.setMedias.filter((media: any) => media.title.includes(searchValue));
   };
 
   return (

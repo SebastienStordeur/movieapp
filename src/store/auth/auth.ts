@@ -32,6 +32,9 @@ const AuthSlice = createSlice({
       localStorage.removeItem("token");
       return (state = initialState);
     },
+    checkIfTokenExists(state) {
+      state.isAuthenticated = true;
+    },
   },
 });
 

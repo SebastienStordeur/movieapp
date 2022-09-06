@@ -13,12 +13,32 @@
     grid-column-gap: 16px;
     overflow: hidden;
     overflow-x: scroll;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      height: 5px;
+      width: 100px;
+      margin-top: 5px;
+      background: $white;
+    }
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+      border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,1); 
+    }
+  }
+  @media (min-width: 768px) {
+    .trending-grid {
+      grid-template-columns: repeat(5, 470px);
+    }
   }
 }
 
 
 .trending-movie {
-  width: 240px;
+  width: 100%;
   height: 140px;
   border-radius: 8px;
   overflow: hidden;
@@ -30,18 +50,51 @@
     object-fit: cover;
   }
   .movie-infos {
-    margin-top: 86px;
+    top: 86px;
+    left: 0;
     margin-left: 16px;
+    position: absolute;
     .secondary-infos {
+      display: flex;
+      align-items: center;
       font-size: 12px;
       font-weight: 300;
       mix-blend-mode: normal;
       opacity: 0.75;
+      span {
+        margin-right: 6px;
+        position: relative;
+      }
+      .dot {
+        width: 4px;
+        height: 4px;
+        background: $white;
+        border-radius: 100%;
+        margin-right: 6px;
+      }
+      img {
+        margin-right: 6px;
+      }
     }
     .movie-title {
+      color: $white;
       font-weight: 500;
       font-size: 15px;
     }
   }
+}
 
+@media (min-width:768px) {
+  .trending-movie {
+    height: 230px;
+    .movie-infos {
+      top: 154px;
+      .secondary-infos {
+        font-size: 15px;
+      }
+      .movie-title {
+        font-size: 24px;
+      }
+    }
+  }
 }
