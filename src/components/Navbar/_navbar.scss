@@ -39,4 +39,7 @@
 }
 .log-nav {
   color: $white;
+  p {
+    cursor: pointer;
+  }
 }

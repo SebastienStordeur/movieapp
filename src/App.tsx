@@ -8,6 +8,7 @@ import Signup from "./pages/Signup";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "./store/store";
 import { authActions } from "./store/auth/auth";
+import Bookmarks from "./pages/Bookmarks";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const App: React.FC = () => {
         {!isAuthenticated && <Route path="/signup" element={<Signup />} />}
         <Route path="/movies" element={<Movies />} />
         <Route path="/series" element={<Series />} />
+        {isAuthenticated && <Route path="bookmarks" element={<Bookmarks />} />}
       </Routes>
     </BrowserRouter>
   );

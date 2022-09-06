@@ -1,10 +1,22 @@
 import React from "react";
 import { IMovie } from "../Trending/TrendingMovie";
 import MovieIcn from "../../../assets/icon-category-movie.svg";
+import Bookmark from "../../../assets/icon-bookmark-empty.svg";
+import Bookmarked from "../../../assets/icon-bookmark-full.svg";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 
 const MediaCard: React.FC<IMovie> = (props) => {
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
   return (
     <article className="recommended-movie">
+      {isAuthenticated && (
+        <button className="bookmark">
+          <img src={Bookmark} alt="Bookmark this media" />
+        </button>
+      )}
       <div className="image-movie">
         <picture>
           <source
