@@ -10,7 +10,7 @@ const Home: React.FC = () => {
     <React.Fragment>
       <Header />
       <Main>
-        <Search placeholder="Search for movies or TV series" />
+        {/* <Search placeholder="Search for movies or TV series" /> */}
         <Trending />
         <Medias title="Recommended for you" />
       </Main>

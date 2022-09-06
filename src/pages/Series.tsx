@@ -19,7 +19,7 @@ const Series: React.FC = () => {
     <React.Fragment>
       <Header />
       <Main>
-        <Search placeholder="Search for TV series" />
+        <Search placeholder="Search for TV series" medias={series} />
         <Medias title="TV Series" medias={series} />
       </Main>
     </React.Fragment>

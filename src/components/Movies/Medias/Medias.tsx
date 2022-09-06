@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Movie } from "../Trending/Trending";
-import data from "../../../data/data.json";
 import MediaCard from "./MediaCard";
 
 interface IMedias {
@@ -27,19 +26,6 @@ interface IMedias {
 }
 
 const Medias: React.FC<IMedias> = (props) => {
-  console.log("props", props.medias);
-  /*   const [recommended, setRecommended] = useState<any>([]);
-
-  useEffect(() => {
-    const recommendedMovies = data.filter(
-      (movie) => (movie.isBookmarked = true)
-    );
-    console.log(recommendedMovies);
-    setRecommended(recommendedMovies);
-  }, []); */
-
-  //console.log(recommended);
-
   return (
     <section id="recommended" className="recommended-section">
       <h2 className="recommended-title">{props.title}</h2>

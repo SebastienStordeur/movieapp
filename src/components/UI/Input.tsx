@@ -6,9 +6,12 @@ interface IInput {
   name: string;
   type: string;
   placeholder: string;
+  value?: string;
+  onChange?: /* (event: React.ChangeEvent<HTMLInputElement>) => void | */ any;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
-const Input: React.FC<IInput> = (props) => {
+const Input: React.FC<IInput> = React.forwardRef((props, ref) => {
   return (
     <input
       id={props.id}
@@ -16,8 +19,10 @@ const Input: React.FC<IInput> = (props) => {
       name={props.name}
       type={props.type}
       placeholder={props.placeholder}
+      onChange={props.onChange}
+      ref={ref}
     />
   );
-};
+});
 
 export default React.memo(Input);

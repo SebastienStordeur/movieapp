@@ -1,6 +1,6 @@
 .recommended-section {
   width: 100%;
-  padding: 0 16px;
+  padding: 0 16px 24px;
   margin-top: 24px;
   .recommended-title {
     font-weight: 300;
@@ -81,3 +81,19 @@
   }
 }
 
+@media(min-width:768px) {
+  .recommended-movie {
+    height: 192px;
+    .image-movie {
+      height: 140px;
+    }
+  }
+}
+@media(min-width:1024px) {
+  .recommended-movie {
+    height: 226px;
+    .image-movie {
+      height: 174px;
+    }
+  }
+}
