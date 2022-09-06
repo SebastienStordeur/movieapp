@@ -10,7 +10,7 @@ const Bookmarks: React.FC = () => {
       <Header />
       <Main>
         {/* <Search placeholder="Search for bookmarked shows" /> */}
-        <Medias title="Bookmarked Movies" />
+        {/* <Medias title="Bookmarked Movies" /> */}
       </Main>
     </React.Fragment>
   );

@@ -8,6 +8,11 @@ import Search from "../components/Search/Search";
 
 const Movies: React.FC = () => {
   const [movies, setMovies] = useState<any>([]);
+  const [searchValue, setSearchValue] = useState<string | undefined>("");
+
+  const getSearchValue = (value: string | undefined) => {
+    setSearchValue(value);
+  };
 
   useEffect(() => {
     const filteredMovies = data.filter((movie) => movie.category === "Movie");
@@ -23,8 +28,11 @@ const Movies: React.FC = () => {
           medias={movies}
           setMedias={setMovies}
           type="Movie"
+          getValue={getSearchValue}
         />
-        {movies && <Medias title="Movies" medias={movies} />}
+        {movies && (
+          <Medias title="Movies" medias={movies} value={searchValue} />
+        )}
       </Main>
     </React.Fragment>
   );

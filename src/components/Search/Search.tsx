@@ -25,26 +25,32 @@ interface ISearch {
     isBookmarked: boolean;
     isTrending: boolean;
   }[];
-  setMedias?: Dispatch<SetStateAction<any>> | any;
-  type?: string;
+  setMedias: Dispatch<SetStateAction<any>>;
+  type: string;
+  getValue?: any;
 }
 
 const Search: React.FC<ISearch> = (props) => {
   const searchRef = useRef<HTMLInputElement>(null);
 
   const filterMediaHandler = () => {
+    props.getValue(searchRef.current?.value);
     if (props.type !== "All") {
       props.setMedias(
         data.filter(
           (media: any) =>
-            media.title.includes(searchRef.current?.value) &&
+            media.title
+              .toLowerCase()
+              .includes(searchRef.current?.value.toLowerCase()) &&
             media.category === props.type
         )
       );
     } else {
       props.setMedias(
         data.filter((media: any) =>
-          media.title.includes(searchRef.current?.value)
+          media.title
+            .toLowerCase()
+            .includes(searchRef.current?.value.toLowerCase())
         )
       );
     }

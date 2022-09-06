@@ -1,34 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Movie } from "../Trending/Trending";
 import MediaCard from "./MediaCard";
 
 interface IMedias {
   title: string;
-  medias?: {
-    title: string;
-    thumbnail: {
-      trending: {
-        small: string;
-        large: string;
-      };
-      regular: {
-        small: string;
-        medium: string;
-        large: string;
-      };
-    };
-    year: number;
-    category: string;
-    rating: string;
-    isBookmarked: boolean;
-    isTrending: boolean;
-  }[];
+  value?: string | undefined | any;
+  medias:
+    | {
+        title: string;
+        thumbnail: {
+          trending: {
+            small: string;
+            large: string;
+          };
+          regular: {
+            small: string;
+            medium: string;
+            large: string;
+          };
+        };
+        year: number;
+        category: string;
+        rating: string;
+        isBookmarked: boolean;
+        isTrending: boolean;
+      }[];
 }
 
 const Medias: React.FC<IMedias> = (props) => {
+  const [isEmpty, setIsEmpty] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (props.value.length > 0) {
+      setIsEmpty(false);
+    } else {
+      setIsEmpty(true);
+    }
+  }, [props.value]);
+
   return (
     <section id="recommended" className="recommended-section">
-      <h2 className="recommended-title">{props.title}</h2>
+      {isEmpty && <h2 className="recommended-title">{props.title}</h2>}
+      {!isEmpty && (
+        <h2 className="recommended-title">
+          Found {props.medias.length} results for {props.value}
+        </h2>
+      )}
       <div className="recommended-grid">
         {props.medias
           ? props.medias.map((movie: Movie) => {
