@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type AuthState = {
   isAuthenticated: boolean;
   user: {
-    id: string;
+    id: string | null;
     email: string;
   };
 };
@@ -27,6 +27,7 @@ const AuthSlice = createSlice({
       state.user.email = payload.email;
 
       localStorage.setItem("token", payload.token);
+      localStorage.setItem("id", payload.id);
     },
     logout(state) {
       localStorage.removeItem("token");
@@ -34,6 +35,7 @@ const AuthSlice = createSlice({
     },
     checkIfTokenExists(state) {
       state.isAuthenticated = true;
+      state.user.id = localStorage.getItem("id");
     },
   },
 });

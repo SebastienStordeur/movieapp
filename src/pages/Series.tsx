@@ -7,6 +7,11 @@ import data from "../data/data.json";
 
 const Series: React.FC = () => {
   const [series, setSeries] = useState<any>([]);
+  const [searchValue, setSearchValue] = useState<string | undefined>("");
+
+  const getSearchValue = (value: string | undefined) => {
+    setSearchValue(value);
+  };
 
   useEffect(() => {
     const filteredSeries = data.filter(
@@ -14,6 +19,7 @@ const Series: React.FC = () => {
     );
     setSeries(filteredSeries);
   }, []);
+
   return (
     <React.Fragment>
       <Header />
@@ -23,8 +29,9 @@ const Series: React.FC = () => {
           medias={series}
           setMedias={setSeries}
           type="TV Series"
+          getValue={getSearchValue}
         />
-        <Medias title="TV Series" medias={series} />
+        <Medias title="TV Series" medias={series} value={searchValue} />
       </Main>
     </React.Fragment>
   );

@@ -30,20 +30,20 @@ interface IMedias {
 const Medias: React.FC<IMedias> = (props) => {
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (props.value.length > 0) {
       setIsEmpty(false);
     } else {
       setIsEmpty(true);
     }
-  }, [props.value]);
+  }, [props.value]); */
 
   return (
     <section id="recommended" className="recommended-section">
       {isEmpty && <h2 className="recommended-title">{props.title}</h2>}
       {!isEmpty && (
         <h2 className="recommended-title">
-          Found {props.medias.length} results for {props.value}
+          Found {props.medias.length} results for ‘{props.value}’
         </h2>
       )}
       <div className="recommended-grid">

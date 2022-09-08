@@ -1,25 +1,24 @@
-import axios from "axios";
-import React from "react";
+import React, { useRef, useState } from "react";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 import Form from "../../Layouts/Form/Form";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
 
 const SignupForm: React.FC = () => {
+  const [emailValue, setEmailValue] = useState<string>("");
+
+  const auth = getAuth();
+  const email = emailValue;
+  const password = "password";
+
+  const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmailValue(event.currentTarget.value);
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    axios
-      .post(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API_KEY}`,
-        {
-          email: "test1@test.com",
-          password: "password",
-          returnSecureToken: true,
-        }
-      )
-      .then((response) => console.log(response));
-
-    console.log("submit");
+    createUserWithEmailAndPassword(auth, email, password);
   };
 
   return (
@@ -31,6 +30,8 @@ const SignupForm: React.FC = () => {
         name="email"
         type="email"
         placeholder="Email Address"
+        value={emailValue}
+        onChange={emailChangeHandler}
       />
       <Input
         id="password"

@@ -9,12 +9,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "./store/store";
 import { authActions } from "./store/auth/auth";
 import Bookmarks from "./pages/Bookmarks";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+  console.log(user, auth);
+
+  if (user) {
+    console.log(user);
+  } else {
+    console.log("no user");
+  }
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -35,6 +46,8 @@ const App: React.FC = () => {
         <Route path="/movies" element={<Movies />} />
         <Route path="/series" element={<Series />} />
         {isAuthenticated && <Route path="bookmarks" element={<Bookmarks />} />}
+        {isAuthenticated && <Route path="*" element={<Home />} />}
+        {!isAuthenticated && <Route path="*" element={<Home />} />}
       </Routes>
     </BrowserRouter>
   );
