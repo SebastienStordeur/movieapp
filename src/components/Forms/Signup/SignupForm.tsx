@@ -1,9 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 import Form from "../../Layouts/Form/Form";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { db } from "../../../firebase-config";
 
 const SignupForm: React.FC = () => {
   const [emailValue, setEmailValue] = useState<string>("");
@@ -11,14 +13,23 @@ const SignupForm: React.FC = () => {
   const auth = getAuth();
   const email = emailValue;
   const password = "password";
+  const usersCollectionRef = collection(db, "users");
 
   const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmailValue(event.currentTarget.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password);
+    createUserWithEmailAndPassword(auth, email, password).then(async (user) => {
+      const userUid = user.user.uid;
+      const email = user.user.email;
+      await setDoc(doc(usersCollectionRef, userUid), {
+        userUid,
+        email,
+        bookmarks: [],
+      });
+    });
   };
 
   return (

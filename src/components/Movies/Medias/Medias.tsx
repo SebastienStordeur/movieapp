@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Movie } from "../Trending/Trending";
 import MediaCard from "./MediaCard";
 
@@ -49,7 +49,7 @@ const Medias: React.FC<IMedias> = (props) => {
       <div className="recommended-grid">
         {props.medias
           ? props.medias.map((movie: Movie) => {
-              return <MediaCard {...movie} key={Math.random().toString()} />;
+              return <MediaCard movie={movie} key={Math.random().toString()} />;
             })
           : ""}
       </div>

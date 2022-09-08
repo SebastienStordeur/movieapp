@@ -36,7 +36,7 @@ const Trending: React.FC = () => {
         {inTrending
           ? inTrending.map((movie: Movie) => {
               return (
-                <TrendingMovie {...movie} key={Math.random().toString()} />
+                <TrendingMovie movie={movie} key={Math.random().toString()} />
               );
             })
           : ""}
