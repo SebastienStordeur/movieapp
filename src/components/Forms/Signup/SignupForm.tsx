@@ -4,7 +4,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import Form from "../../Layouts/Form/Form";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../../../firebase-config";
 
 const SignupForm: React.FC = () => {

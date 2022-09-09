@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
@@ -12,11 +12,30 @@ import MovieIcn from "../../../assets/icon-category-movie.svg";
 import Bookmark from "../../../assets/icon-bookmark-empty.svg";
 import Bookmarked from "../../../assets/icon-bookmark-full.svg";
 
-const MediaCard: React.FC<IMovie> = (props) => {
+interface IMedia extends IMovie {
+  bookmarks: any[];
+}
+
+const MediaCard: React.FC<IMedia> = (props) => {
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
+
   const auth = getAuth();
+
+  useEffect(() => {
+    if (props.bookmarks) {
+      const isFound = props.bookmarks.find(
+        (movie) => movie.title === props.movie.title
+      );
+      if (isFound) {
+        setIsBookmarked(() => true);
+      } else {
+        setIsBookmarked(() => false);
+      }
+    }
+  }, [props]);
 
   const addMovieToBookmarkHandler = async () => {
     if (auth.currentUser != null) {
@@ -33,7 +52,7 @@ const MediaCard: React.FC<IMovie> = (props) => {
       {isAuthenticated && (
         <button className="bookmark">
           <img
-            src={Bookmark}
+            src={isBookmarked ? Bookmarked : Bookmark}
             alt="Bookmark this media"
             onClick={addMovieToBookmarkHandler}
           />
