@@ -8,8 +8,10 @@ import {
   setPersistence,
   browserLocalPersistence,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm: React.FC = () => {
+  const navigate = useNavigate();
   const [emailValue, setEmailValue] = useState<string>("");
   const [passwordValue, setPasswordValue] = useState<string>("");
   const [formHasError, setFormHasError] = useState<boolean | null>(null);
@@ -39,8 +41,8 @@ const LoginForm: React.FC = () => {
     setPersistence(auth, browserLocalPersistence)
       .then(() => {
         signInWithEmailAndPassword(auth, email, password)
-          .then((userCredentials) => {
-            return userCredentials;
+          .then(() => {
+            return navigate("/");
           })
           .catch(() => {
             setFormHasError(() => true);

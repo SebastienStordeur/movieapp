@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -24,7 +24,6 @@ const App: React.FC = () => {
         <Route path="/movies" element={<Movies />} />
         <Route path="/series" element={<Series />} />
         <Route path="bookmarks" element={<Bookmarks />} />
-        <Route path="*" element={<Home />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </BrowserRouter>
