@@ -20,11 +20,7 @@ const App: React.FC = () => {
   const auth = getAuth();
 
   onAuthStateChanged(auth, (user) => {
-    if (user) {
-      console.log(user);
-    } else {
-      console.log("no user");
-    }
+    return user;
   });
 
   useEffect(() => {

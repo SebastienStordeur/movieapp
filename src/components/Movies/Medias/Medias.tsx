@@ -1,11 +1,9 @@
-import { getAuth } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-import React, { useState, useEffect } from "react";
-import { db } from "../../../firebase-config";
+import React, { useState } from "react";
+
 import { Movie } from "../Trending/Trending";
 import MediaCard from "./MediaCard";
 
-interface IMedias {
+export interface IMedias {
   title: string;
   value?: string | undefined | any;
   medias:
@@ -34,8 +32,6 @@ const Medias: React.FC<IMedias> = (props) => {
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
   const [bookmarked, setBookmarked] = useState<any>([]);
 
-  const auth = getAuth();
-
   /*   useEffect(() => {
     if (props.value.length > 0) {
       setIsEmpty(() => false);
@@ -43,24 +39,6 @@ const Medias: React.FC<IMedias> = (props) => {
       setIsEmpty(() => true);
     }
   }, [props.value]); */
-
-  useEffect(() => {
-    const getBookmarksDoc = () => {
-      if (auth.currentUser != null) {
-        const userRef = doc(db, "users", auth.currentUser.uid);
-        const userSnap = getDoc(userRef);
-
-        if (userSnap) {
-          userSnap.then((res) => {
-            setBookmarked(() => res.data());
-          });
-        } else {
-          console.log("nothing to display");
-        }
-      }
-    };
-    getBookmarksDoc();
-  }, [auth]);
 
   return (
     <section id="recommended" className="recommended-section">

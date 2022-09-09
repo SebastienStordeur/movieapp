@@ -9,14 +9,33 @@ import { db } from "../../../firebase-config";
 
 const SignupForm: React.FC = () => {
   const [emailValue, setEmailValue] = useState<string>("");
+  const [passwordValue, setPasswordValue] = useState<string>("");
+  const [confirmPasswordValue, setConfirmPasswordValue] = useState<string>("");
 
   const auth = getAuth();
   const email = emailValue;
-  const password = "password";
+  let password: string;
+
+  if (passwordValue === confirmPasswordValue) {
+    password = passwordValue;
+  }
+
   const usersCollectionRef = collection(db, "users");
 
   const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmailValue(event.currentTarget.value);
+  };
+
+  const passwordChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPasswordValue(event.currentTarget.value);
+  };
+
+  const confirmPasswordChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setConfirmPasswordValue(event.currentTarget.value);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -50,6 +69,8 @@ const SignupForm: React.FC = () => {
         name="password"
         type="password"
         placeholder="Password"
+        value={passwordValue}
+        onChange={passwordChangeHandler}
       />
       <Input
         id="confirm-password"
@@ -57,9 +78,11 @@ const SignupForm: React.FC = () => {
         name="confirm-password"
         type="password"
         placeholder="Repeat Password"
+        value={confirmPasswordValue}
+        onChange={confirmPasswordChangeHandler}
       />
       <Button className="btn login-btn" type="submit">
-        Login to your account
+        Create an account
       </Button>
       <p className="switch-form">
         Already have an account?

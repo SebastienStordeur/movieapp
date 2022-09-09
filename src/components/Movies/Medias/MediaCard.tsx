@@ -13,10 +13,11 @@ import Bookmark from "../../../assets/icon-bookmark-empty.svg";
 import Bookmarked from "../../../assets/icon-bookmark-full.svg";
 
 interface IMedia extends IMovie {
-  bookmarks: any[];
+  bookmarks?: any[];
 }
 
 const MediaCard: React.FC<IMedia> = (props) => {
+  console.log(props);
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
@@ -30,6 +31,7 @@ const MediaCard: React.FC<IMedia> = (props) => {
         (movie) => movie.title === props.movie.title
       );
       if (isFound) {
+        console.log("true");
         setIsBookmarked(() => true);
       } else {
         setIsBookmarked(() => false);
