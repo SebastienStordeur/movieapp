@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase-config";
 
 import { IMovie } from "../Trending/TrendingMovie";
@@ -18,12 +18,8 @@ const MediaCard: React.FC<IMedia> = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const auth = getAuth();
 
-  /*   onAuthStateChanged(auth, () => {
-    setIsAuthenticated(() => true);
-  }); */
-
   useEffect(() => {
-    if (auth.currentUser !== null) {
+    onAuthStateChanged(auth, () => {
       setIsAuthenticated(() => true);
       if (props.bookmarks !== undefined) {
         const isFound: boolean = props.bookmarks.find(
@@ -34,31 +30,23 @@ const MediaCard: React.FC<IMedia> = (props) => {
           console.log(isBookmarked);
         }
       }
-    }
-  }, [auth, props, isBookmarked]);
-  /*   if (auth.currentUser !== null) {
-    setIsAuthenticated(() => true);
-  } */
-
-  /*   useEffect(() => {
-    if (props.bookmarks) {
-      const isFound: boolean = props.bookmarks.find(
-        (movie) => movie.title === props.movie.title
-      );
-      if (isFound) {
-        console.log("true");
-        setIsBookmarked(() => true);
-      } else {
-        setIsBookmarked(() => false);
-      }
-    }
-  }, [props]); */
+    });
+  }, [auth, isBookmarked, props]);
 
   const addMovieToBookmarkHandler = async () => {
-    if (auth.currentUser != null) {
+    if (auth.currentUser !== null) {
       const userDoc = doc(db, "users", auth.currentUser.uid);
       await updateDoc(userDoc, {
         bookmarks: arrayUnion(props.movie),
+      });
+    }
+  };
+
+  const removeMovieFromBookmarkHandler = async () => {
+    if (auth.currentUser !== null) {
+      const userDoc = doc(db, "users", auth.currentUser.uid);
+      await updateDoc(userDoc, {
+        bookmarks: arrayRemove(props.movie),
       });
     }
   };
@@ -70,7 +58,11 @@ const MediaCard: React.FC<IMedia> = (props) => {
           <img
             src={isBookmarked ? Bookmarked : Bookmark}
             alt="Bookmark this media"
-            onClick={addMovieToBookmarkHandler}
+            onClick={
+              isBookmarked
+                ? removeMovieFromBookmarkHandler
+                : addMovieToBookmarkHandler
+            }
           />
         </button>
       )}
