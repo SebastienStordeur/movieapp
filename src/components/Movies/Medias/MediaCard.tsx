@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
-
 import { getAuth } from "firebase/auth";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase-config";
@@ -17,17 +14,17 @@ interface IMedia extends IMovie {
 }
 
 const MediaCard: React.FC<IMedia> = (props) => {
-  console.log(props);
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
-
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const auth = getAuth();
 
-  useEffect(() => {
+  /*   if (auth.currentUser !== null) {
+    setIsAuthenticated(() => true);
+  } */
+
+  /*   useEffect(() => {
     if (props.bookmarks) {
-      const isFound = props.bookmarks.find(
+      const isFound: boolean = props.bookmarks.find(
         (movie) => movie.title === props.movie.title
       );
       if (isFound) {
@@ -37,7 +34,7 @@ const MediaCard: React.FC<IMedia> = (props) => {
         setIsBookmarked(() => false);
       }
     }
-  }, [props]);
+  }, [props]); */
 
   const addMovieToBookmarkHandler = async () => {
     if (auth.currentUser != null) {
@@ -45,7 +42,6 @@ const MediaCard: React.FC<IMedia> = (props) => {
       await updateDoc(userDoc, {
         bookmarks: arrayUnion(props.movie),
       });
-      console.log("ok");
     }
   };
 

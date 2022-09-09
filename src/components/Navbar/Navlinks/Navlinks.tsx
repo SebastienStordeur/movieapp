@@ -4,13 +4,8 @@ import Movie from "../../../assets/icon-nav-movies.svg";
 import TV from "../../../assets/icon-nav-tv-series.svg";
 import Bookmark from "../../../assets/icon-nav-bookmark.svg";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
 
 const Navlinks: React.FC = () => {
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
   return (
     <div className="nav-links">
       <NavLink to="/" className={(nav) => (nav.isActive ? "nav-active" : "")}>
@@ -28,14 +23,13 @@ const Navlinks: React.FC = () => {
       >
         <img src={TV} alt="TV shows" title="To TV shows" />
       </NavLink>
-      {isAuthenticated && (
-        <NavLink
-          to="/bookmarks"
-          className={(nav) => (nav.isActive ? "nav-active" : "")}
-        >
-          <img src={Bookmark} alt="Bookmark" title="To bookmarks" />
-        </NavLink>
-      )}
+
+      <NavLink
+        to="/bookmarks"
+        className={(nav) => (nav.isActive ? "nav-active" : "")}
+      >
+        <img src={Bookmark} alt="Bookmark" title="To bookmarks" />
+      </NavLink>
     </div>
   );
 };

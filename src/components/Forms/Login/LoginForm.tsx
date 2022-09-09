@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import Form from "../../Layouts/Form/Form";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
-import { authActions } from "../../../store/auth/auth";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -12,8 +10,6 @@ import {
 } from "firebase/auth";
 
 const LoginForm: React.FC = () => {
-  const dispatch = useDispatch();
-
   const [emailValue, setEmailValue] = useState<string>("");
   const [passwordValue, setPasswordValue] = useState<string>("");
   const [formHasError, setFormHasError] = useState<boolean | null>(null);
@@ -36,12 +32,6 @@ const LoginForm: React.FC = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    /*     if (!formIsValid) {
-      setFormHasError(() => true);
-      setErrorMessage(() => "Wrong email/password combination");
-      return;
-    } */
-
     setFormHasError(() => false);
     setErrorMessage(() => "");
     console.log("ok");
@@ -50,15 +40,7 @@ const LoginForm: React.FC = () => {
       .then(() => {
         signInWithEmailAndPassword(auth, email, password)
           .then((userCredentials) => {
-            const user = userCredentials.user;
-            user.getIdTokenResult().then((response) => {
-              const token: string = response.token;
-              const payload = {
-                token,
-                id: user.uid,
-              };
-              dispatch(authActions.login(payload));
-            });
+            return userCredentials;
           })
           .catch(() => {
             setFormHasError(() => true);

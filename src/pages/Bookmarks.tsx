@@ -15,7 +15,6 @@ const Bookmarks: React.FC = () => {
   const [bookmarkedMovies, setBookmarkedMovies] = useState<any>("");
 
   useEffect(() => {
-    /* const getBookmarksDoc = () => { */
     if (auth.currentUser != null) {
       const userRef = doc(db, "users", auth.currentUser.uid);
       const userSnap = getDoc(userRef);
@@ -30,8 +29,6 @@ const Bookmarks: React.FC = () => {
         console.log("nothing to display");
       }
     }
-    /* };
-    getBookmarksDoc(); */
   }, [auth]);
 
   console.log(bookmarked);
@@ -40,12 +37,16 @@ const Bookmarks: React.FC = () => {
     (movie: any) => movie.category === "Movie"
   );
 
+  const filteredSeries = bookmarked.filter(
+    (movie: any) => movie.category === "TV Series"
+  );
+
   return (
     <React.Fragment>
       <Header />
       <Main>
         <BookmarkSection title="Bookmarked Movies" medias={filteredMovies} />
-        {/* <BookmarkSection title="Bookmarded TV Series" /> */}
+        <BookmarkSection title="Bookmarded TV Series" medias={filteredSeries} />
         {/* <Search placeholder="Search for bookmarked shows" /> */}
 
         {/*         <section className="bookmarked-section">
