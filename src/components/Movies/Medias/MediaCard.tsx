@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase-config";
 
@@ -18,6 +18,24 @@ const MediaCard: React.FC<IMedia> = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const auth = getAuth();
 
+  /*   onAuthStateChanged(auth, () => {
+    setIsAuthenticated(() => true);
+  }); */
+
+  useEffect(() => {
+    if (auth.currentUser !== null) {
+      setIsAuthenticated(() => true);
+      if (props.bookmarks !== undefined) {
+        const isFound: boolean = props.bookmarks.find(
+          (movie) => movie.title === props.movie.title
+        );
+        if (isFound) {
+          setIsBookmarked(() => true);
+          console.log(isBookmarked);
+        }
+      }
+    }
+  }, [auth, props, isBookmarked]);
   /*   if (auth.currentUser !== null) {
     setIsAuthenticated(() => true);
   } */

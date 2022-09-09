@@ -1,10 +1,11 @@
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import { db } from "../../../firebase-config";
 
 import { Movie } from "../Trending/Trending";
 import MediaCard from "./MediaCard";
+import Bookmarks from "../../../pages/Bookmarks";
 
 export interface IMedias {
   title: string;
@@ -36,6 +37,20 @@ const Medias: React.FC<IMedias> = (props) => {
   const [bookmarked, setBookmarked] = useState<any>([]);
   const auth = getAuth();
 
+  useEffect(() => {
+    if (auth.currentUser !== null) {
+      const userRef = doc(db, "users", auth.currentUser.uid);
+      const userSnap = getDoc(userRef);
+
+      if (userSnap) {
+        userSnap.then((res) => {
+          setBookmarked(() => res.data());
+          console.log(bookmarked);
+        });
+      }
+    }
+  }, [auth]);
+
   /*   useEffect(() => {
     if (props.value.length > 0) {
       setIsEmpty(() => false);
@@ -44,7 +59,7 @@ const Medias: React.FC<IMedias> = (props) => {
     }
   }, [props.value]); */
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (auth.currentUser) {
       const userRef = doc(db, "users", auth.currentUser.uid);
       const userSnap = getDoc(userRef);
@@ -58,7 +73,7 @@ const Medias: React.FC<IMedias> = (props) => {
         console.log("nothing");
       }
     }
-  }, [auth]);
+  }, [auth]); */
 
   /*  console.log("bookmarked", bookmarked); */
 

@@ -5,7 +5,11 @@ import TV from "../../../assets/icon-nav-tv-series.svg";
 import Bookmark from "../../../assets/icon-nav-bookmark.svg";
 import { NavLink } from "react-router-dom";
 
-const Navlinks: React.FC = () => {
+interface INavlinks {
+  isAuth: boolean;
+}
+
+const Navlinks: React.FC<INavlinks> = (props) => {
   return (
     <div className="nav-links">
       <NavLink to="/" className={(nav) => (nav.isActive ? "nav-active" : "")}>
@@ -23,13 +27,14 @@ const Navlinks: React.FC = () => {
       >
         <img src={TV} alt="TV shows" title="To TV shows" />
       </NavLink>
-
-      <NavLink
-        to="/bookmarks"
-        className={(nav) => (nav.isActive ? "nav-active" : "")}
-      >
-        <img src={Bookmark} alt="Bookmark" title="To bookmarks" />
-      </NavLink>
+      {props.isAuth && (
+        <NavLink
+          to="/bookmarks"
+          className={(nav) => (nav.isActive ? "nav-active" : "")}
+        >
+          <img src={Bookmark} alt="Bookmark" title="To bookmarks" />
+        </NavLink>
+      )}
     </div>
   );
 };

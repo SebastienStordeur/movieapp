@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className="navbar">
       <img src={Logo} alt="Logo" className="logo-header" title="Logo" />
-      <Navlinks />
+      <Navlinks isAuth={isAuthenticated} />
       <div className="log-nav">
         {isAuthenticated && <p onClick={logoutHandler}>Logout</p>}
         {!isAuthenticated && <Link to="/login">Login</Link>}
