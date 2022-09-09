@@ -38,11 +38,12 @@ const Medias: React.FC<IMedias> = (props) => {
 
   /*   useEffect(() => {
     if (props.value.length > 0) {
-      setIsEmpty(false);
+      setIsEmpty(() => false);
     } else {
-      setIsEmpty(true);
+      setIsEmpty(() => true);
     }
   }, [props.value]); */
+
   useEffect(() => {
     const getBookmarksDoc = () => {
       if (auth.currentUser != null) {
@@ -51,8 +52,7 @@ const Medias: React.FC<IMedias> = (props) => {
 
         if (userSnap) {
           userSnap.then((res) => {
-            setBookmarked(res.data());
-            console.log("isBookmarked", bookmarked);
+            setBookmarked(() => res.data());
           });
         } else {
           console.log("nothing to display");
@@ -60,7 +60,7 @@ const Medias: React.FC<IMedias> = (props) => {
       }
     };
     getBookmarksDoc();
-  }, []);
+  }, [auth]);
 
   return (
     <section id="recommended" className="recommended-section">

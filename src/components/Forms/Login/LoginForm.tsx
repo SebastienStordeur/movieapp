@@ -4,7 +4,12 @@ import Form from "../../Layouts/Form/Form";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
 import { authActions } from "../../../store/auth/auth";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -14,19 +19,23 @@ const LoginForm: React.FC = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    signInWithEmailAndPassword(auth, email, password).then(
-      (userCredentials) => {
-        const user = userCredentials.user;
-        user.getIdTokenResult().then((response) => {
-          const token: string = response.token;
-          const payload = {
-            token: token,
-            id: user.uid,
-          };
-          dispatch(authActions.login(payload));
-        });
-      }
-    );
+    setPersistence(auth, browserLocalPersistence)
+      .then(() => {
+        signInWithEmailAndPassword(auth, email, password).then(
+          (userCredentials) => {
+            const user = userCredentials.user;
+            user.getIdTokenResult().then((response) => {
+              const token: string = response.token;
+              const payload = {
+                token,
+                id: user.uid,
+              };
+              dispatch(authActions.login(payload));
+            });
+          }
+        );
+      })
+      .catch((error) => console.error(error));
   };
 
   return (

@@ -18,14 +18,14 @@ const App: React.FC = () => {
   );
 
   const auth = getAuth();
-  const user = auth.currentUser;
-  console.log(user, auth);
 
-  if (user) {
-    console.log(user);
-  } else {
-    console.log("no user");
-  }
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log(user);
+    } else {
+      console.log("no user");
+    }
+  });
 
   useEffect(() => {
     if (localStorage.getItem("token")) {

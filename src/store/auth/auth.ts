@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getAuth, signOut } from "firebase/auth";
 
 type AuthState = {
   isAuthenticated: boolean;
@@ -30,9 +31,15 @@ const AuthSlice = createSlice({
       localStorage.setItem("id", payload.id);
     },
     logout(state) {
-      localStorage.removeItem("token");
-      return (state = initialState);
+      const auth = getAuth();
+      signOut(auth)
+        .then(() => {
+          localStorage.removeItem("token");
+          return (state = initialState);
+        })
+        .catch((error) => console.error(error));
     },
+
     checkIfTokenExists(state) {
       state.isAuthenticated = true;
       state.user.id = localStorage.getItem("id");
