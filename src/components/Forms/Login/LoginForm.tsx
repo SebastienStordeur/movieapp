@@ -36,7 +36,6 @@ const LoginForm: React.FC = () => {
 
     setFormHasError(() => false);
     setErrorMessage(() => "");
-    console.log("ok");
 
     setPersistence(auth, browserLocalPersistence)
       .then(() => {
@@ -80,7 +79,7 @@ const LoginForm: React.FC = () => {
       </Button>
       {formHasError && <p className="error">{errorMessage}</p>}
       <p className="switch-form">
-        Don't have an account?
+        Don't have an account? &nbsp;
         <a className="form-action" href="/signup">
           Sign Up
         </a>

@@ -85,7 +85,7 @@ const SignupForm: React.FC = () => {
         Create an account
       </Button>
       <p className="switch-form">
-        Already have an account?
+        Already have an account? &nbsp;
         <a className="form-action" href="/login">
           Login
         </a>

@@ -1,23 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import SignupForm from "../components/Forms/Signup/SignupForm";
 import Card from "../components/UI/Card";
-import { db } from "../firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import Button from "../components/UI/Button";
+import { Link } from "react-router-dom";
 
 const Signup: React.FC = () => {
-  const [user, setUser] = useState<any>();
-  const usersCollectionRef = collection(db, "users");
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setUser(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getUsers();
-  }, []);
-  console.log(user);
   return (
     <section className="form-section">
+      <Button className="btn return-btn">
+        <Link to="/">Return to Home</Link>
+      </Button>
       <Card className="card signup-card">
         <SignupForm />
       </Card>

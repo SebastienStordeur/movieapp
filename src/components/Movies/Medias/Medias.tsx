@@ -59,24 +59,6 @@ const Medias: React.FC<IMedias> = (props) => {
     }
   }, [props.value]); */
 
-  /*   useEffect(() => {
-    if (auth.currentUser) {
-      const userRef = doc(db, "users", auth.currentUser.uid);
-      const userSnap = getDoc(userRef);
-
-      if (userSnap) {
-        userSnap.then((res) => {
-          setBookmarked(() => res.data());
-          //console.log("isBookmarked", bookmarked);
-        });
-      } else {
-        console.log("nothing");
-      }
-    }
-  }, [auth]); */
-
-  /*  console.log("bookmarked", bookmarked); */
-
   return (
     <section id="recommended" className="recommended-section">
       {isEmpty && <h2 className="recommended-title">{props.title}</h2>}

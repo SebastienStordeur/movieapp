@@ -20,13 +20,13 @@ const MediaCard: React.FC<IMedia> = (props) => {
 
   useEffect(() => {
     onAuthStateChanged(auth, () => {
-      setIsAuthenticated(() => true);
+      setIsAuthenticated(true);
       if (props.bookmarks !== undefined) {
         const isFound: boolean = props.bookmarks.find(
           (movie) => movie.title === props.movie.title
         );
         if (isFound) {
-          setIsBookmarked(() => true);
+          setIsBookmarked(true);
           console.log(isBookmarked);
         }
       }
@@ -38,6 +38,8 @@ const MediaCard: React.FC<IMedia> = (props) => {
       const userDoc = doc(db, "users", auth.currentUser.uid);
       await updateDoc(userDoc, {
         bookmarks: arrayUnion(props.movie),
+      }).then(() => {
+        setIsBookmarked(true);
       });
     }
   };
@@ -47,6 +49,8 @@ const MediaCard: React.FC<IMedia> = (props) => {
       const userDoc = doc(db, "users", auth.currentUser.uid);
       await updateDoc(userDoc, {
         bookmarks: arrayRemove(props.movie),
+      }).then(() => {
+        setIsBookmarked(false);
       });
     }
   };
@@ -54,15 +58,17 @@ const MediaCard: React.FC<IMedia> = (props) => {
   return (
     <article className="recommended-movie">
       {isAuthenticated && (
-        <button className="bookmark">
+        <button
+          className="bookmark"
+          onClick={
+            isBookmarked
+              ? removeMovieFromBookmarkHandler
+              : addMovieToBookmarkHandler
+          }
+        >
           <img
             src={isBookmarked ? Bookmarked : Bookmark}
             alt="Bookmark this media"
-            onClick={
-              isBookmarked
-                ? removeMovieFromBookmarkHandler
-                : addMovieToBookmarkHandler
-            }
           />
         </button>
       )}
