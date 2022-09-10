@@ -26,11 +26,10 @@ export interface IMovie {
 const TrendingMovie: React.FC<IMovie> = (props) => {
   return (
     <article className="trending-movie">
-      <img
-        src={props.movie.thumbnail.trending.small}
-        alt={props.movie.title}
-        className="movie-img"
-      />
+      <picture>
+        <source srcSet={props.movie.thumbnail.trending.large} media="(min-width: 768px)" />
+        <img src={props.movie.thumbnail.trending.small} alt={props.movie.title} className="movie-img" />
+      </picture>
       <div className="movie-infos">
         <div className="secondary-infos">
           <span>{props.movie.year}</span>

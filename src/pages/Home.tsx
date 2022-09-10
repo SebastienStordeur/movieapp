@@ -6,9 +6,10 @@ import Trending from "../components/Movies/Trending/Trending";
 import Search from "../components/Search/Search";
 
 import data from "../data/data.json";
+import { NotTrendingMovie } from "./Movies";
 
 const Home: React.FC = () => {
-  const [medias, setMedias] = useState<any>([]);
+  const [medias, setMedias] = useState<NotTrendingMovie[]>([]);
 
   useEffect(() => {
     setMedias(data.slice(5, data.length));
@@ -18,17 +19,9 @@ const Home: React.FC = () => {
     <React.Fragment>
       <Header />
       <Main>
-        <Search
-          placeholder="Search for movies or TV series"
-          medias={medias}
-          setMedias={setMedias}
-          type="All"
-        />
+        <Search placeholder="Search for movies or TV series" medias={medias} setMedias={setMedias} type="All" />
         <Trending />
-        <Medias
-          title="Recommended for you"
-          medias={medias} /* setMedias={setMedias} */
-        />
+        <Medias title="Recommended for you" medias={medias} /* setMedias={setMedias} */ />
       </Main>
     </React.Fragment>
   );

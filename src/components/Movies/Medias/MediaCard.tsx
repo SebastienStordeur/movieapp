@@ -1,34 +1,59 @@
 import React, { useState, useEffect } from "react";
 
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { Auth, getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  arrayRemove,
+  arrayUnion,
+  doc,
+  DocumentData,
+  DocumentReference,
+  DocumentSnapshot,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../../firebase-config";
 
-import { IMovie } from "../Trending/TrendingMovie";
 import MovieIcn from "../../../assets/icon-category-movie.svg";
 import Bookmark from "../../../assets/icon-bookmark-empty.svg";
 import Bookmarked from "../../../assets/icon-bookmark-full.svg";
 
-interface IMedia extends IMovie {
-  bookmarks?: any[];
+interface IMedia {
+  movie: {
+    title: string;
+    thumbnail: {
+      /*       trending: {
+        small: string;
+        large: string;
+      }; */
+      regular: {
+        small: string;
+        medium: string;
+        large: string;
+      };
+    };
+    year: number;
+    category: string;
+    rating: string;
+    isBookmarked: boolean;
+    isTrending: boolean;
+  };
 }
 
 const MediaCard: React.FC<IMedia> = (props) => {
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const auth = getAuth();
+  const auth: Auth = getAuth();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user !== null) {
         setIsAuthenticated(true);
-        const userRef = doc(db, "users", user.uid);
-        const userSnap = getDoc(userRef);
+        const userRef: DocumentReference<DocumentData> = doc(db, "users", user.uid);
+        const userSnap: Promise<DocumentSnapshot<DocumentData>> = getDoc(userRef);
         if (userSnap) {
           userSnap.then((res) => {
-            const data = res.data();
+            const data: DocumentData | undefined = res.data();
             if (data !== undefined) {
-              console.log(data.bookmarks);
               const isFound: boolean = data.bookmarks.find((movie: any) => movie.title === props.movie.title);
               if (isFound) {
                 setIsBookmarked(true);
@@ -40,7 +65,7 @@ const MediaCard: React.FC<IMedia> = (props) => {
     });
   }, [auth, isBookmarked, props]);
 
-  const addMovieToBookmarkHandler = async () => {
+  const addMovieToBookmarkHandler: () => void = async () => {
     if (auth.currentUser !== null) {
       const userDoc = doc(db, "users", auth.currentUser.uid);
       await updateDoc(userDoc, {
@@ -51,7 +76,7 @@ const MediaCard: React.FC<IMedia> = (props) => {
     }
   };
 
-  const removeMovieFromBookmarkHandler = async () => {
+  const removeMovieFromBookmarkHandler: () => void = async () => {
     if (auth.currentUser !== null) {
       const userDoc = doc(db, "users", auth.currentUser.uid);
       await updateDoc(userDoc, {

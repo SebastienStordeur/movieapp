@@ -1,23 +1,18 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
-import { db } from "../../../firebase-config";
-
-import { Movie } from "../Trending/Trending";
+import { NotTrendingMovie } from "../../../pages/Movies";
 import MediaCard from "./MediaCard";
-import Bookmarks from "../../../pages/Bookmarks";
 
 export interface IMedias {
   title: string;
-  value?: string | undefined | any;
+  value?: string;
   medias:
     | {
         title: string;
         thumbnail: {
-          trending: {
+          /*           trending: {
             small: string;
             large: string;
-          };
+          }; */
           regular: {
             small: string;
             medium: string;
@@ -34,30 +29,18 @@ export interface IMedias {
 
 const Medias: React.FC<IMedias> = (props) => {
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
-  const [bookmarked, setBookmarked] = useState<any>([]);
-  const auth = getAuth();
 
-  useEffect(() => {
-    if (auth.currentUser !== null) {
-      const userRef = doc(db, "users", auth.currentUser.uid);
-      const userSnap = getDoc(userRef);
+  console.log("value", props.value);
 
-      if (userSnap) {
-        userSnap.then((res) => {
-          setBookmarked(() => res.data());
-          console.log(bookmarked);
-        });
+  /* useEffect(() => { */
+  /*     if (props.value !== undefined) {
+      if (props.value.length > 0) {
+        setIsEmpty(() => false);
+      } else {
+        setIsEmpty(() => true);
       }
-    }
-  }, [auth]);
-
-  /*   useEffect(() => {
-    if (props.value.length > 0) {
-      setIsEmpty(() => false);
-    } else {
-      setIsEmpty(() => true);
-    }
-  }, [props.value]); */
+    } */
+  /* }, [props]); */
 
   return (
     <section id="recommended" className="recommended-section">
@@ -69,14 +52,8 @@ const Medias: React.FC<IMedias> = (props) => {
       )}
       <div className="recommended-grid">
         {props.medias
-          ? props.medias.map((movie: Movie) => {
-              return (
-                <MediaCard
-                  movie={movie}
-                  key={Math.random().toString()}
-                  bookmarks={bookmarked.bookmarks}
-                />
-              );
+          ? props.medias.map((movie: NotTrendingMovie) => {
+              return <MediaCard movie={movie} key={Math.random().toString()} />;
             })
           : ""}
       </div>

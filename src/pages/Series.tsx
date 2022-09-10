@@ -14,9 +14,7 @@ const Series: React.FC = () => {
   };
 
   useEffect(() => {
-    const filteredSeries = data.filter(
-      (serie) => serie.category === "TV Series"
-    );
+    const filteredSeries = data.filter((serie) => serie.category === "TV Series");
     setSeries(filteredSeries);
   }, []);
 

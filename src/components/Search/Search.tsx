@@ -9,10 +9,10 @@ interface ISearch {
   medias: {
     title: string;
     thumbnail: {
-      trending: {
+      /*       trending: {
         small: string;
         large: string;
-      };
+      }; */
       regular: {
         small: string;
         medium: string;
@@ -27,31 +27,27 @@ interface ISearch {
   }[];
   setMedias: Dispatch<SetStateAction<any>>;
   type: string;
-  getValue?: any;
+  getValue?: (value: string | undefined) => void;
 }
 
 const Search: React.FC<ISearch> = (props) => {
   const searchRef = useRef<HTMLInputElement>(null);
 
   const filterMediaHandler = () => {
-    props.getValue(searchRef.current?.value);
+    if (props.getValue !== undefined) {
+      props.getValue(searchRef?.current?.value);
+    }
+
     if (props.type !== "All") {
       props.setMedias(
         data.filter(
           (media: any) =>
-            media.title
-              .toLowerCase()
-              .includes(searchRef.current?.value.toLowerCase()) &&
-            media.category === props.type
+            media.title.toLowerCase().includes(searchRef.current?.value.toLowerCase()) && media.category === props.type
         )
       );
     } else {
       props.setMedias(
-        data.filter((media: any) =>
-          media.title
-            .toLowerCase()
-            .includes(searchRef.current?.value.toLowerCase())
-        )
+        data.filter((media: any) => media.title.toLowerCase().includes(searchRef.current?.value.toLowerCase()))
       );
     }
   };

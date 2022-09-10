@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import data from "../../../data/data.json";
 import TrendingMovie from "./TrendingMovie";
 
@@ -23,23 +23,16 @@ export type Movie = {
 };
 
 const Trending: React.FC = () => {
-  const [inTrending, setInTrending] = useState<any>([]);
-  useEffect(() => {
-    const trendingMovies = data.filter((movie) => (movie.isTrending = true));
-    setInTrending(trendingMovies.slice(0, 5));
-  }, []);
+  const trendingMovies = data.filter((movie) => movie.thumbnail.trending !== undefined);
 
   return (
     <section id="trending" className="trending-section">
       <h2 className="trending-title">Trending</h2>
       <div className="trending-grid">
-        {inTrending
-          ? inTrending.map((movie: Movie) => {
-              return (
-                <TrendingMovie movie={movie} key={Math.random().toString()} />
-              );
-            })
-          : ""}
+        {trendingMovies &&
+          trendingMovies.map((movie: any) => {
+            return <TrendingMovie movie={movie} key={Math.random().toString()} />;
+          })}
       </div>
     </section>
   );

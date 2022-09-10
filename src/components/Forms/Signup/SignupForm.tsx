@@ -28,19 +28,19 @@ const SignupForm: React.FC = () => {
   const emailChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setEmailValue(event.currentTarget.value);
+    setEmailValue(event.target.value);
   };
 
   const passwordChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setPasswordValue(event.currentTarget.value);
+    setPasswordValue(event.target.value);
   };
 
   const confirmPasswordChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setConfirmPasswordValue(event.currentTarget.value);
+    setConfirmPasswordValue(event.target.value);
   };
 
   if (emailRegex.test(emailValue) && passwordValue === confirmPasswordValue && passwordValue.length >= 6) {
@@ -48,9 +48,7 @@ const SignupForm: React.FC = () => {
     formIsValid = true;
   }
 
-  const handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void = async (
-    event: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (emailValue.length < 1 || !emailRegex.test(emailValue)) {
@@ -74,7 +72,6 @@ const SignupForm: React.FC = () => {
         });
       })
       .catch((error) => {
-        console.log(error.message);
         if (error.message === "Firebase: Error (auth/email-already-in-use).") {
           setIsEmailUsed(true);
         } else {

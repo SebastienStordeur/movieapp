@@ -6,11 +6,11 @@ import Movies from "./pages/Movies";
 import Series from "./pages/Series";
 import Signup from "./pages/Signup";
 import Bookmarks from "./pages/Bookmarks";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Auth, getAuth, onAuthStateChanged } from "firebase/auth";
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const auth = getAuth();
+  const auth: Auth = getAuth();
 
   onAuthStateChanged(auth, (user) => {
     if (user !== null) {

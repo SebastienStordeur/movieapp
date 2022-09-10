@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import Logo from "../../assets/logo.svg";
 import Navlinks from "./Navlinks/Navlinks";
 import { Link } from "react-router-dom";
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signOut, onAuthStateChanged, Auth } from "firebase/auth";
 
 const Navbar: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const auth = getAuth();
+  const auth: Auth = getAuth();
 
   onAuthStateChanged(auth, () => {
     if (auth.currentUser !== null) {
@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
     }
   });
 
-  const logoutHandler = () => {
+  const logoutHandler: () => void = () => {
     signOut(auth);
   };
 
