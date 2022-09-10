@@ -8,6 +8,7 @@ interface IInput {
   placeholder: string;
   value?: string;
   onChange?: /* (event: React.ChangeEvent<HTMLInputElement>) => void | */ any;
+  onBlur?: () => void;
   ref?: React.Ref<HTMLInputElement>;
 }
 
@@ -20,6 +21,7 @@ const Input: React.FC<IInput> = React.forwardRef((props, ref) => {
       type={props.type}
       placeholder={props.placeholder}
       onChange={props.onChange}
+      onBlur={props.onBlur}
       ref={ref}
     />
   );

@@ -15,6 +15,8 @@ const App: React.FC = () => {
   onAuthStateChanged(auth, (user) => {
     if (user !== null) {
       setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
     }
     return user;
   });

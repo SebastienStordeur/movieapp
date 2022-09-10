@@ -56,24 +56,28 @@ const LoginForm: React.FC = () => {
   return (
     <Form className="form login-form" onSubmit={handleSubmit}>
       <h1 className="form-title">Login</h1>
-      <Input
-        id="email"
-        className="input email-input"
-        name="email"
-        type="email"
-        placeholder="Email Address"
-        value={emailValue}
-        onChange={emailChangeHandler}
-      />
-      <Input
-        id="password"
-        className="input password-input"
-        name="password"
-        type="password"
-        placeholder="Password"
-        value={passwordValue}
-        onChange={passwordChangeHandler}
-      />
+      <div className="form-validation">
+        <Input
+          id="email"
+          className="input email-input"
+          name="email"
+          type="email"
+          placeholder="Email Address"
+          value={emailValue}
+          onChange={emailChangeHandler}
+        />
+      </div>
+      <div className="form-validation">
+        <Input
+          id="password"
+          className="input password-input"
+          name="password"
+          type="password"
+          placeholder="Password"
+          value={passwordValue}
+          onChange={passwordChangeHandler}
+        />
+      </div>
       <Button className="btn login-btn" type="submit">
         Login to your account
       </Button>

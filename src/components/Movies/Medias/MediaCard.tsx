@@ -19,8 +19,11 @@ const MediaCard: React.FC<IMedia> = (props) => {
   const auth = getAuth();
 
   useEffect(() => {
-    onAuthStateChanged(auth, () => {
-      setIsAuthenticated(true);
+    onAuthStateChanged(auth, (user) => {
+      if (user !== null) {
+        setIsAuthenticated(true);
+      }
+
       if (props.bookmarks !== undefined) {
         const isFound: boolean = props.bookmarks.find(
           (movie) => movie.title === props.movie.title
