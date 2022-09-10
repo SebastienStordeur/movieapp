@@ -12,7 +12,6 @@ import BookmarkSection from "../components/Movies/Bookmarked/Bookmarks";
 const Bookmarks: React.FC = () => {
   const auth = getAuth();
   const [bookmarked, setBookmarked] = useState<any>([]);
-  const [bookmarkedMovies, setBookmarkedMovies] = useState<any>("");
 
   useEffect(() => {
     if (auth.currentUser != null) {
@@ -33,27 +32,17 @@ const Bookmarks: React.FC = () => {
 
   console.log(bookmarked);
 
-  const filteredMovies = bookmarked.filter(
-    (movie: any) => movie.category === "Movie"
-  );
+  const filteredMovies = bookmarked.filter((movie: any) => movie.category === "Movie");
 
-  const filteredSeries = bookmarked.filter(
-    (movie: any) => movie.category === "TV Series"
-  );
+  const filteredSeries = bookmarked.filter((movie: any) => movie.category === "TV Series");
 
   return (
     <React.Fragment>
       <Header />
       <Main>
+        {/* <Search placeholder="Search for bookmarked shows" /> */}
         <BookmarkSection title="Bookmarked Movies" medias={filteredMovies} />
         <BookmarkSection title="Bookmarded TV Series" medias={filteredSeries} />
-        {/* <Search placeholder="Search for bookmarked shows" /> */}
-
-        {/*         <section className="bookmarked-section">
-          <h2 className="bookmarked-title">Movies and TV series bookmarked</h2> */}
-        {/*           {bookmarked.bookmarks.map((movie: any) => {
-            return <MediaCard movie={movie} key={Math.random().toString()} />;
-          })} */}
       </Main>
     </React.Fragment>
   );

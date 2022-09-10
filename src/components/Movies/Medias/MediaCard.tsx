@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase-config";
 
 import { IMovie } from "../Trending/TrendingMovie";
@@ -22,15 +22,19 @@ const MediaCard: React.FC<IMedia> = (props) => {
     onAuthStateChanged(auth, (user) => {
       if (user !== null) {
         setIsAuthenticated(true);
-      }
-
-      if (props.bookmarks !== undefined) {
-        const isFound: boolean = props.bookmarks.find(
-          (movie) => movie.title === props.movie.title
-        );
-        if (isFound) {
-          setIsBookmarked(true);
-          console.log(isBookmarked);
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = getDoc(userRef);
+        if (userSnap) {
+          userSnap.then((res) => {
+            const data = res.data();
+            if (data !== undefined) {
+              console.log(data.bookmarks);
+              const isFound: boolean = data.bookmarks.find((movie: any) => movie.title === props.movie.title);
+              if (isFound) {
+                setIsBookmarked(true);
+              }
+            }
+          });
         }
       }
     });
@@ -63,32 +67,16 @@ const MediaCard: React.FC<IMedia> = (props) => {
       {isAuthenticated && (
         <button
           className="bookmark"
-          onClick={
-            isBookmarked
-              ? removeMovieFromBookmarkHandler
-              : addMovieToBookmarkHandler
-          }
+          onClick={isBookmarked ? removeMovieFromBookmarkHandler : addMovieToBookmarkHandler}
         >
-          <img
-            src={isBookmarked ? Bookmarked : Bookmark}
-            alt="Bookmark this media"
-          />
+          <img src={isBookmarked ? Bookmarked : Bookmark} alt="Bookmark this media" />
         </button>
       )}
       <div className="image-movie">
         <picture>
-          <source
-            srcSet={props.movie.thumbnail.regular.large}
-            media="(min-width:1024px)"
-          />
-          <source
-            srcSet={props.movie.thumbnail.regular.medium}
-            media="(min-width:768px)"
-          />
-          <img
-            src={props.movie.thumbnail.regular.small}
-            alt={props.movie.title}
-          />
+          <source srcSet={props.movie.thumbnail.regular.large} media="(min-width:1024px)" />
+          <source srcSet={props.movie.thumbnail.regular.medium} media="(min-width:768px)" />
+          <img src={props.movie.thumbnail.regular.small} alt={props.movie.title} />
         </picture>
       </div>
       <div className="movie-infos">
