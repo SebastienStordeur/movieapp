@@ -21,6 +21,7 @@ const SignupForm: React.FC = () => {
 
   const auth: Auth = getAuth();
   const usersCollectionRef: CollectionReference<DocumentData> = collection(db, "users");
+
   const email: string = emailValue;
   let password: string;
   let formIsValid: boolean = false;
@@ -86,8 +87,8 @@ const SignupForm: React.FC = () => {
       <div className="form-validation">
         <Input
           id="email"
-          className="input email-input"
           name="email"
+          className="input email-input"
           type="email"
           placeholder="Email Address  (6 characters min.)"
           value={emailValue}

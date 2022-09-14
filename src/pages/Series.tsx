@@ -22,14 +22,14 @@ const Series: React.FC = () => {
     <React.Fragment>
       <Header />
       <Main>
-        <Search
+        {/*         <Search
           placeholder="Search for TV series"
           medias={series}
           setMedias={setSeries}
           type="TV Series"
           getValue={getSearchValue}
         />
-        <Medias title="TV Series" medias={series} value={searchValue} />
+        <Medias title="TV Series" medias={series} value={searchValue} /> */}
       </Main>
     </React.Fragment>
   );

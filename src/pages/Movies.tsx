@@ -5,6 +5,7 @@ import Header from "../components/Layouts/Header/Header";
 import Main from "../components/Layouts/Main/Main";
 import Medias from "../components/Movies/Medias/Medias";
 import Search from "../components/Search/Search";
+import Input from "../components/UI/Input";
 
 export type NotTrendingMovie = {
   title: string;
@@ -23,30 +24,26 @@ export type NotTrendingMovie = {
 };
 
 const Movies: React.FC = () => {
-  const [movies, setMovies] = useState<NotTrendingMovie[]>([]);
-  const [searchValue, setSearchValue] = useState<string | undefined>("");
+  const [movies, setMovies] = useState</* NotTrendingMovie[] */ any>([]);
+  const [searchValue, setSearchValue] = useState<string>("");
 
-  const getSearchValue = (value: string | undefined) => {
-    setSearchValue(value);
+  const getSearchValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
   };
 
-  useEffect(() => {
+  console.log(searchValue);
+
+  /*   useEffect(() => {
     const filteredMovies: NotTrendingMovie[] = data.filter((movie) => movie.category === "Movie");
     setMovies(filteredMovies);
-  }, []);
+  }, []); */
 
   return (
     <React.Fragment>
       <Header />
       <Main>
-        <Search
-          placeholder="Search for movies"
-          medias={movies}
-          setMedias={setMovies}
-          type="Movie"
-          getValue={getSearchValue}
-        />
-        {movies && <Medias title="Movies" medias={movies} value={searchValue} />}
+        <Search placeholder="Search for movies" value={searchValue} onChange={setSearchValue} />
+        {/* {movies && <Medias title="Movies" medias={movies} value={searchValue} />} */}
       </Main>
     </React.Fragment>
   );

@@ -19,9 +19,9 @@ const Home: React.FC = () => {
     <React.Fragment>
       <Header />
       <Main>
-        <Search placeholder="Search for movies or TV series" medias={medias} setMedias={setMedias} type="All" />
-        <Trending />
-        <Medias title="Recommended for you" medias={medias} /* setMedias={setMedias} */ />
+        {/* <Search placeholder="Search for movies or TV series" medias={medias} setMedias={setMedias} type="All" /> */}
+        {/*         <Trending />
+        <Medias title="Recommended for you" medias={medias} /> */}
       </Main>
     </React.Fragment>
   );

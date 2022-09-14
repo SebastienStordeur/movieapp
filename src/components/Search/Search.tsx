@@ -1,68 +1,38 @@
-import React, { Dispatch, SetStateAction, useRef } from "react";
+import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import Input from "../UI/Input";
 
 import SearchIcon from "../../assets/icon-search.svg";
-import data from "../../data/data.json";
 
 interface ISearch {
   placeholder: string;
-  medias: {
-    title: string;
-    thumbnail: {
-      /*       trending: {
-        small: string;
-        large: string;
-      }; */
-      regular: {
-        small: string;
-        medium: string;
-        large: string;
-      };
-    };
-    year: number;
-    category: string;
-    rating: string;
-    isBookmarked: boolean;
-    isTrending: boolean;
-  }[];
-  setMedias: Dispatch<SetStateAction<any>>;
-  type: string;
-  getValue?: (value: string | undefined) => void;
+  onChange: Dispatch<SetStateAction<string>>;
+  value: string;
 }
 
 const Search: React.FC<ISearch> = (props) => {
-  const searchRef = useRef<HTMLInputElement>(null);
+  console.log("props", props);
+  const searchValueRef = useRef<any>("");
+  /*   const [searchValue, setSearchValue] = useState<string>("");
+  console.log(searchValue);
 
-  const filterMediaHandler = () => {
-    if (props.getValue !== undefined) {
-      props.getValue(searchRef?.current?.value);
-    }
+  props.onChange(searchValue);
 
-    if (props.type !== "All") {
-      props.setMedias(
-        data.filter(
-          (media: any) =>
-            media.title.toLowerCase().includes(searchRef.current?.value.toLowerCase()) && media.category === props.type
-        )
-      );
-    } else {
-      props.setMedias(
-        data.filter((media: any) => media.title.toLowerCase().includes(searchRef.current?.value.toLowerCase()))
-      );
-    }
-  };
+  const filter = data.filter((movie) => movie.title.includes(searchValue));
+  console.log(filter); */
 
   return (
     <div className="search">
       <img src={SearchIcon} alt="Search" className="search-icon" />
+
       <Input
         id="search"
         name="search"
         className="input search-input"
         type="text"
         placeholder={props.placeholder}
-        onChange={filterMediaHandler}
-        ref={searchRef}
+        value={props.value}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onChange(event.target.value)}
+        ref={searchValueRef}
       />
     </div>
   );

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import { getAuth } from "firebase/auth";
+import { Auth, getAuth } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 
 import Header from "../components/Layouts/Header/Header";
 import Main from "../components/Layouts/Main/Main";
 import Search from "../components/Search/Search";
-import BookmarkSection from "../components/Movies/Bookmarked/Bookmarks";
+import BookmarkSection from "../components/Movies/Bookmarked/BookmarkSection";
 
 const Bookmarks: React.FC = () => {
-  const auth = getAuth();
+  const auth: Auth = getAuth();
   const [bookmarked, setBookmarked] = useState<any>([]);
 
   useEffect(() => {
@@ -30,10 +30,7 @@ const Bookmarks: React.FC = () => {
     }
   }, [auth]);
 
-  console.log(bookmarked);
-
   const filteredMovies = bookmarked.filter((movie: any) => movie.category === "Movie");
-
   const filteredSeries = bookmarked.filter((movie: any) => movie.category === "TV Series");
 
   return (

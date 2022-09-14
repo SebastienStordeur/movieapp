@@ -50,17 +50,18 @@ const MediaCard: React.FC<IMedia> = (props) => {
         setIsAuthenticated(true);
         const userRef: DocumentReference<DocumentData> = doc(db, "users", user.uid);
         const userSnap: Promise<DocumentSnapshot<DocumentData>> = getDoc(userRef);
-        if (userSnap) {
-          userSnap.then((res) => {
-            const data: DocumentData | undefined = res.data();
-            if (data !== undefined) {
-              const isFound: boolean = data.bookmarks.find((movie: any) => movie.title === props.movie.title);
-              if (isFound) {
-                setIsBookmarked(true);
-              }
+
+        userSnap.then((res) => {
+          const data: DocumentData | undefined = res.data();
+          if (data !== undefined) {
+            const isFound: boolean = data.bookmarks.find((movie: any) => movie.title === props.movie.title);
+            if (isFound) {
+              setIsBookmarked(true);
+            } else {
+              setIsBookmarked(false);
             }
-          });
-        }
+          }
+        });
       }
     });
   }, [auth, isBookmarked, props]);
